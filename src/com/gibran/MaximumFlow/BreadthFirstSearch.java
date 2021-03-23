@@ -1,5 +1,4 @@
 package com.gibran.MaximumFlow;
 
-public class MaximumFlow {
-
+public class BreadthFirstSearch {
 }
