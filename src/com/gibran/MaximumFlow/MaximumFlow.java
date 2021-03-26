@@ -32,8 +32,6 @@ public class MaximumFlow {
 
             maximumFlow += path_flow;
         }
-        residualGraph.printGraph();
-        System.out.println();
         return maximumFlow;
     }
 

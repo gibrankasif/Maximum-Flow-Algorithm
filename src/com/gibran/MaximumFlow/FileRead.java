@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileRead {
+    int numberOfNodes;
+    int numberOfEdges;
     public Graph graphReader(String fileName) throws FileNotFoundException {
         try {
         Graph graph;
@@ -14,6 +16,7 @@ public class FileRead {
         Scanner sc = new Scanner(fis);
         String nodeQty = sc.nextLine().trim();
         graph = new Graph(Integer.parseInt(nodeQty));
+        numberOfNodes = graph.getNumberOfNodes();
 
         int[] nodeConnections = new int[3];
         while (sc.hasNextLine()) {
@@ -24,6 +27,7 @@ public class FileRead {
             }
             graph.putEdge(nodeConnections[0], nodeConnections[1], nodeConnections[2]);
         }
+        numberOfEdges = graph.getNumberOfEdges();
         return graph;
         } catch(FileNotFoundException ex1){
             System.out.println("File "+ fileName +" does not exist!");

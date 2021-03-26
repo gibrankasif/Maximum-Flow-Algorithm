@@ -11,14 +11,13 @@ public class Graph {
     public Graph(int numberOfNodes) {
         this.numberOfNodes = numberOfNodes;
         adjacencyMatrix = new int[numberOfNodes][numberOfNodes];
-
     }
 
     public int getNumberOfNodes() {
         return numberOfNodes;
     }
 
-    public int getNumberOfEdges(){
+    public int getNumberOfEdges() {
         return numberOfEdges;
     }
 
@@ -27,13 +26,13 @@ public class Graph {
     }
 
     public int getEdge(int i, int j) {
-        if(hasEdge(i, j)){
+        if (hasEdge(i, j)) {
             return adjacencyMatrix[i][j];
         }
         return 0;
     }
 
-    public void putEdge(int i, int j, int edgeWeight){
+    public void putEdge(int i, int j, int edgeWeight) {
         numberOfEdges++;
         adjacencyMatrix[i][j] = edgeWeight;
     }
@@ -43,27 +42,18 @@ public class Graph {
         adjacencyMatrix[i][j] = 0;
     }
 
-    public boolean hasEdge(int i, int j){
+    public boolean hasEdge(int i, int j) {
         return adjacencyMatrix[i][j] != 0;
     }
 
     public int degree(int node) {
-        int numOfEdges = 0;
-        for(int i = 0; i < numberOfNodes; i++) {
-            if(adjacencyMatrix[node][i] != 0){
-                numOfEdges++;
-            }
-        }
-        if(adjacencyMatrix[node][node] != 0){
-            numOfEdges++;
-        }
-        return numOfEdges;
+        return inDegree(node) + outDegree(node);
     }
 
     public int inDegree(int node) {
         int inDegree = 0;
-        for(int i = 0; i < adjacencyMatrix.length; i++) {
-            if(adjacencyMatrix[i][node] != 0) {
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            if (adjacencyMatrix[i][node] != 0) {
                 inDegree++;
             }
         }
@@ -73,8 +63,8 @@ public class Graph {
 
     public int outDegree(int node) {
         int outDegree = 0;
-        for(int j = 0; j < adjacencyMatrix.length; j++) {
-            if(adjacencyMatrix[node][j] != 0) {
+        for (int j = 0; j < adjacencyMatrix.length; j++) {
+            if (adjacencyMatrix[node][j] != 0) {
                 outDegree++;
             }
         }
@@ -83,27 +73,25 @@ public class Graph {
 
     public List<Integer> adjacentNodes(int node) {
         List<Integer> neighbours = new ArrayList<>();
-        for(int i = 0; i < numberOfNodes; i++){
-            if(hasEdge(node, i)){
+        for (int i = 0; i < numberOfNodes; i++) {
+            if (hasEdge(node, i)) {
                 neighbours.add(i);
             }
         }
-        if(neighbours.size() == 0)
+        if (neighbours.size() == 0)
             return null;
         return neighbours;
     }
 
-    public void printGraph(){
-        for(int i = 0; i < adjacencyMatrix.length; i++)
-        {
-            for(int j = 0; j < adjacencyMatrix.length; j++)
-            {
-                System.out.printf("%3d ", adjacencyMatrix[i][j]);
+    public void printGraph() {
+        System.out.println("Adjacency Matrix:");
+        for (int row = 0; row < adjacencyMatrix.length; row++) {
+            for (int col = 0; col < adjacencyMatrix.length; col++) {
+                System.out.printf("%4d", adjacencyMatrix[row][col]);
             }
             System.out.println();
         }
     }
-
     public void printEdges() {
         for (int i = 0; i < numberOfNodes; i++) {
             System.out.print("Node " + i + " is connected to: ");
