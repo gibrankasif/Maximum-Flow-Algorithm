@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class ConsoleApplication {
     static Graph graph;
     static List<Integer> nodesAvailable;
+    static int sinkNode;
+    static int sourceNode;
 
     public static void main(String[] args) throws FileNotFoundException { consoleMenu(); }
 
@@ -17,9 +19,7 @@ public class ConsoleApplication {
         String[] datasets;
         boolean fileChoice = false;
         while (!fileChoice) {
-
             File datasetDirectory = new File("Inputs/");
-
             // Populates the array with names of files and directories
             datasets = datasetDirectory.list();
             int fileIndex = 1;
@@ -51,24 +51,34 @@ public class ConsoleApplication {
                 System.out.println("Invalid file choice, please try again!");
             }
         }
-
         nodesAvailable = new ArrayList<>(graph.getNumberOfNodes());
         for (int i = 0; i < graph.getNumberOfNodes(); i++) {
             nodesAvailable.add(i, i);
         }
         String arrayOfNodes = "Nodes at present: " + nodesAvailable;
 
+        System.out.println(arrayOfNodes);
+        Scanner enterNodeValues = new Scanner(System.in);
+
+        int[] chosenNodes = inputNodeValidation(enterNodeValues);
+        sourceNode = chosenNodes[0];
+        sinkNode = chosenNodes[1];
+
         consoleMenuLoop:
         while (true) {
             System.out.println("--------------------------------------------------------------");
+            System.out.println("Source: {"  + sourceNode + "}" + "  Sink: {" + sinkNode + "}");
+            System.out.println();
             System.out.println("Enter \"A\" to add a new edge");
             System.out.println("Enter \"C\" to change the weight of an edge");
             System.out.println("Enter \"R\" to remove an edge");
+            System.out.println("Enter \"F\" to search an edge");
             System.out.println("Enter \"L\" to list down the adjacent neighbors of a node");
             System.out.println("Enter \"I\" to calculate the In-Degree of a node");
             System.out.println("Enter \"O\" to calculate the Out-Degree of a node");
             System.out.println("Enter \"D\" to calculate the Degree of a node");
             System.out.println("Enter \"M\" to calculate the maximum flow");
+            System.out.println("Enter \"U\" to update the source and sink nodes");
             System.out.println("Enter \"P\" to display the network flow/adjacency matrix");
             System.out.println("Enter \"Q\" to end the program");
             System.out.println("--------------------------------------------------------------");
@@ -89,6 +99,10 @@ public class ConsoleApplication {
                     System.out.println(arrayOfNodes);
                     removeEdge();
                     break;
+                case "F":
+                    System.out.println(arrayOfNodes);
+                    findEdge();
+                    break;
                 case "L":
                     System.out.println(arrayOfNodes);
                     neighboursForNode();
@@ -106,10 +120,15 @@ public class ConsoleApplication {
                     degree();
                     break;
                 case "M":
+                    System.out.println(arrayOfNodes);
                     calculateMaximumFlow();
                     break;
                 case "P":
                     graph.printGraph();
+                    break;
+                case "U":
+                    System.out.println(arrayOfNodes);
+                    updateSourceSinkNodes();
                     break;
                 case "Q":
                     break consoleMenuLoop;
@@ -149,7 +168,7 @@ public class ConsoleApplication {
                 System.out.println("Successfully added new edge");
             }
         } catch (Exception ex) {
-            System.out.println("Incorrect values have been entered!");
+            System.out.println("Please enter a valid number!");
         }
     }
 
@@ -174,47 +193,22 @@ public class ConsoleApplication {
             }
         }
         catch (Exception ex) {
-            System.out.println("Incorrect values have been entered!");
+            System.out.println("Please enter a valid number!");
         }
     }
 
     public static void removeEdge() {
         Scanner changeEdgeScanner = new Scanner(System.in);
-        try {
-            int[] selectedNodes = inputNodeValidation(changeEdgeScanner);
-            int startNode = selectedNodes[0];
-            int endNode = selectedNodes[1];
+        int[] selectedNodes = inputNodeValidation(changeEdgeScanner);
+        int startNode = selectedNodes[0];
+        int endNode = selectedNodes[1];
 
-            if (graph.hasEdge(startNode, endNode)) {
-                graph.removeEdge(startNode, endNode);
-                System.out.println("Successfully removed edge");
-            } else {
-                System.out.println("The following edge does not exist!");
-            }
-        } catch (Exception ex) {
-            System.out.println("Incorrect values have been entered!");
+        if (graph.hasEdge(startNode, endNode)) {
+            graph.removeEdge(startNode, endNode);
+            System.out.println("Successfully removed edge");
+        } else {
+            System.out.println("The following edge does not exist!");
         }
-    }
-
-    public static int[] inputNodeValidation(Scanner sc) {
-        boolean correctInput = false;
-        int[] nodesSelected = new int[2];
-        while (!correctInput) {
-            System.out.println("Please enter the starting node: ");
-            int start = sc.nextInt();
-            System.out.println("Please enter the ending node: ");
-            int end = sc.nextInt();
-
-            if (!(nodesAvailable.contains(start) && nodesAvailable.contains(end))) {
-                correctInput = false;
-                System.out.println("The entered node values do not exist!");
-            } else {
-                nodesSelected[0] = start;
-                nodesSelected[1] = end;
-                correctInput = true;
-            }
-        }
-            return nodesSelected;
     }
 
     public static void neighboursForNode(){
@@ -233,7 +227,7 @@ public class ConsoleApplication {
                 }
             }
         }catch (Exception ex){
-            System.out.println("Incorrect values have been entered!");
+            System.out.println("Please enter a valid number!");
         }
     }
 
@@ -249,7 +243,7 @@ public class ConsoleApplication {
             }
         }
         catch (Exception ex){
-            System.out.println("Incorrect values have been entered!");
+            System.out.println("Please enter a valid number!");
         }
     }
 
@@ -265,7 +259,7 @@ public class ConsoleApplication {
             }
         }
         catch (Exception ex){
-            System.out.println("Incorrect values have been entered!");
+            System.out.println("Please enter a valid number!");
         }
     }
 
@@ -281,21 +275,76 @@ public class ConsoleApplication {
             }
         }
         catch (Exception ex){
-            System.out.println("Incorrect values have been entered!");
+            System.out.println("Please enter a valid number!");
         }
     }
 
     public static void calculateMaximumFlow() {
         Scanner maxFlowScanner = new Scanner(System.in);
         MaximumFlow maximumFlow = new MaximumFlow();
-        try {
-            int[] selectedNodes = inputNodeValidation(maxFlowScanner);
-            int startNode = selectedNodes[0];
-            int endNode = selectedNodes[1];
-            int maxFlow = maximumFlow.findMaxFlow(graph, startNode, endNode);
-            System.out.println("The calculated maximum flow is " + maxFlow);
-        }catch (Exception ex){
-            System.out.println("Incorrect values have been entered!");
+        int startNode = sourceNode;
+        int endNode = sinkNode;
+        long startTime = System.nanoTime();
+        int maxFlow = maximumFlow.findMaxFlow(graph, startNode, endNode);
+        long endtime = System.nanoTime();
+        System.out.println();
+        System.out.println("The calculated maximum flow is " + maxFlow);
+        long seconds = (endtime - startTime)/1000000000;
+        System.out.println();
+        System.out.println("Time taken: "+ seconds + "secs.");
+    }
+
+    public static void updateSourceSinkNodes() {
+        Scanner changesNodeSC = new Scanner(System.in);
+        int[] selectedNodes = inputNodeValidation(changesNodeSC);
+        sourceNode = selectedNodes[0];
+        sinkNode = selectedNodes[1];
+    }
+
+    private static void findEdge() {
+        Scanner searchEdge = new Scanner(System.in);
+        int[] selectedNodes = inputNodeValidation(searchEdge);
+        int start = selectedNodes[0];
+        int end = selectedNodes[1];
+
+        if (graph.hasEdge(start, end)) {
+            int queriedEdge = graph.getEdge(start, end);
+            System.out.println("Edge between the source and sink node is " + queriedEdge);
+        } else {
+            System.out.println("There is no path between the nodes!");
         }
     }
+
+    public static int[] inputNodeValidation(Scanner sc) {
+        boolean correctInput = false;
+        int[] nodesSelected = new int[2];
+        while (!correctInput) {
+            try {
+                System.out.println("Please enter the starting node: ");
+                int start = sc.nextInt();
+                System.out.println("Please enter the ending node: ");
+                int end = sc.nextInt();
+
+                if (!nodesAvailable.contains(start)) {
+                    System.out.println("The source node is out of bounds!");
+                }
+                else if (!nodesAvailable.contains(end)){
+                    System.out.println("The sink node is out of bounds!");
+                }
+                else if(start == end){
+                    System.out.println("Both source and sink nodes cannot be the same!");
+                }
+                else {
+                    nodesSelected[0] = start;
+                    nodesSelected[1] = end;
+                    correctInput = true;
+                }
+            }catch (Exception e){
+                System.out.println("Incorrect values have been entered!");
+                sc.nextLine();
+            }
+        }
+        return nodesSelected;
+    }
 }
+

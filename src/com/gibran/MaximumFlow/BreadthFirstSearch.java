@@ -5,7 +5,7 @@ import java.util.Deque;
 
 public class BreadthFirstSearch {
     public static boolean bfs(Graph residualGraph, int source, int destination, int[] parent) {
-        boolean pathFound = true;
+        boolean pathFound;
         Deque<Integer> queue = new ArrayDeque();
         int nodes = residualGraph.getNumberOfNodes();
         boolean[] visited = new boolean[nodes];
@@ -29,3 +29,5 @@ public class BreadthFirstSearch {
         return pathFound;
     }
 }
+//    long start = System.nanoTime();
+// divide it by ten to the power 9
