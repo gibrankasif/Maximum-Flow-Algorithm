@@ -164,7 +164,10 @@ public class ConsoleApplication {
                     }
                 }
             } else {
+                long startTime = System.nanoTime();
                 graph.putEdge(startNode, endNode, edgeWeight);
+                long endTime = System.nanoTime();
+
                 System.out.println("Successfully added new edge");
             }
         } catch (Exception ex) {
