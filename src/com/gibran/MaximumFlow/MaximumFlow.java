@@ -37,11 +37,12 @@ public class MaximumFlow {
 
             maximumFlow += bottleNeck;
             numAugmentedPaths++;
-            System.out.println();
-            System.out.println("Number of paths: " + numAugmentedPaths);
-            System.out.println("The current flow values: " + bottleNeck);
-            System.out.println("Current max-flow total: " + maximumFlow);
+//            System.out.println();
+//            System.out.println("Number of paths: " + numAugmentedPaths);
+//            System.out.println("The current flow values: " + bottleNeck);
+//            System.out.println("Current max-flow total: " + maximumFlow);
         }
+
         return maximumFlow;
     }
 }

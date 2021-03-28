@@ -57,12 +57,12 @@ public class ConsoleApplication {
         }
         String arrayOfNodes = "Nodes at present: " + nodesAvailable;
 
-        System.out.println(arrayOfNodes);
-        Scanner enterNodeValues = new Scanner(System.in);
-
-        int[] chosenNodes = inputNodeValidation(enterNodeValues);
-        sourceNode = chosenNodes[0];
-        sinkNode = chosenNodes[1];
+//        System.out.println(arrayOfNodes);
+//        Scanner enterNodeValues = new Scanner(System.in);
+//
+//        int[] chosenNodes = inputNodeValidation(enterNodeValues);
+        sourceNode = 0;
+        sinkNode = graph.getNumberOfNodes() - 1;
 
         consoleMenuLoop:
         while (true) {
@@ -280,16 +280,15 @@ public class ConsoleApplication {
     }
 
     public static void calculateMaximumFlow() {
-        Scanner maxFlowScanner = new Scanner(System.in);
         MaximumFlow maximumFlow = new MaximumFlow();
         int startNode = sourceNode;
         int endNode = sinkNode;
         long startTime = System.nanoTime();
         int maxFlow = maximumFlow.findMaxFlow(graph, startNode, endNode);
-        long endtime = System.nanoTime();
+        long endTime = System.nanoTime();
         System.out.println();
         System.out.println("The calculated maximum flow is " + maxFlow);
-        long seconds = (endtime - startTime)/1000000000;
+        long seconds = (endTime - startTime);
         System.out.println();
         System.out.println("Time taken: "+ seconds + "secs.");
     }

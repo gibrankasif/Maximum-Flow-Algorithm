@@ -25,6 +25,7 @@ public class BreadthFirstSearch {
                 }
             }
         }
+
         pathFound = visited[destination];
         return pathFound;
     }
