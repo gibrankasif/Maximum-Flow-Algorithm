@@ -84,7 +84,7 @@ public class ConsoleApplication {
             System.out.println("--------------------------------------------------------------");
 
             Scanner consoleScanner = new Scanner(System.in);
-            String userChoice = consoleScanner.nextLine().toUpperCase();
+            String userChoice = consoleScanner.nextLine().toUpperCase().trim();
 
             switch (userChoice) {
                 case "A":

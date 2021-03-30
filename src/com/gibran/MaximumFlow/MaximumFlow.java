@@ -1,7 +1,7 @@
 package com.gibran.MaximumFlow;
 
 public class MaximumFlow {
-    BreadthFirstSearch breadthFirstSearch;
+        BreadthFirstSearch breadthFirstSearch;
     public int findMaxFlow(Graph graph, int source, int sink) {
 
         if (source == sink) {
@@ -42,6 +42,7 @@ public class MaximumFlow {
 //            System.out.println("The current flow values: " + bottleNeck);
 //            System.out.println("Current max-flow total: " + maximumFlow);
         }
+        residualGraph.printGraph();
 
         return maximumFlow;
     }
