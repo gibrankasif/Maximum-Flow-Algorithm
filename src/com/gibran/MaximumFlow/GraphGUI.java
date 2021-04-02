@@ -3,6 +3,7 @@ package com.gibran.MaximumFlow;
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jgrapht.ListenableGraph;
+import org.jgrapht.alg.flow.EdmondsKarpMFImpl;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultListenableGraph;
@@ -101,15 +102,18 @@ public class GraphGUI extends JApplet {
 //                {0, 0, 0, 0, 0, 0}
 //        };
 //        GUITotalVertices = 6;
+
  FileRead fr = new FileRead();
          Graph graph = null;
          try {
-         graph = fr.graphReader("bridge_1.txt");
+         graph = fr.graphReader("ladder_4.txt");
          } catch (FileNotFoundException e) {
          e.printStackTrace();
          }
          graph.printGraph();
-
+//
+//            EdmondsKarpMFImpl edmondsKarpMF;
+//            edmondsKarpMF = new EdmondsKarpMFImpl(graph);
          GUIGraph = graph.getAdjacencyMatrix();
          GUITotalVertices = graph.getNumberOfNodes();
 
