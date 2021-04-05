@@ -1,9 +1,21 @@
 package com.gibran.MaximumFlow;
 
+/**
+ * Student Name: Gibran Kasif
+ * IIT ID: 2019176
+ * UoW ID: w1761211
+ */
 public class MaximumFlow {
-        BreadthFirstSearch breadthFirstSearch;
-    public int findMaxFlow(Graph graph, int source, int sink) {
+    BreadthFirstSearch breadthFirstSearch;
 
+    /**
+     *
+     * @param graph
+     * @param source
+     * @param sink
+     * @return
+     */
+    public int findMaxFlow(Graph graph, int source, int sink) {
         if (source == sink) {
             return 0;
         }
@@ -37,12 +49,12 @@ public class MaximumFlow {
 
             maximumFlow += bottleNeck;
             numAugmentedPaths++;
-//            System.out.println();
-//            System.out.println("Number of paths: " + numAugmentedPaths);
-//            System.out.println("The current flow values: " + bottleNeck);
-//            System.out.println("Current max-flow total: " + maximumFlow);
+            System.out.println();
+            System.out.println("Number of paths: " + numAugmentedPaths);
+            System.out.println("The current flow values: " + bottleNeck);
+            System.out.println("Current max-flow total: " + maximumFlow);
         }
-        residualGraph.printGraph();
+//        residualGraph.printGraph();
 
         return maximumFlow;
     }

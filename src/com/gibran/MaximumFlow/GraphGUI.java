@@ -106,7 +106,7 @@ public class GraphGUI extends JApplet {
  FileRead fr = new FileRead();
          Graph graph = null;
          try {
-         graph = fr.graphReader("ladder_4.txt");
+         graph = fr.graphReader("test.txt");
          } catch (FileNotFoundException e) {
          e.printStackTrace();
          }
