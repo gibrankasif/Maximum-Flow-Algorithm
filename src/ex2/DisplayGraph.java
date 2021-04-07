@@ -128,7 +128,7 @@ public class DisplayGraph {
     }
     public static void main(String[] args) throws FileNotFoundException {
         FileRead fr = new FileRead();
-        com.gibran.MaximumFlow.Graph graph = fr.graphReader("ladder_9.txt");
+        com.gibran.MaximumFlow.Graph graph = fr.graphReader("ladder_2.txt");
         String[] arrayIndexStringEquivalents = new String[graph.getNumberOfNodes()];
         int source = 0;
         int sink = graph.getNumberOfNodes() - 1;

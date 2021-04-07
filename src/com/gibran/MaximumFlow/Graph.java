@@ -163,6 +163,7 @@ public class Graph {
     }
 
     /**
+     * Following method prints all edges of the graph
      *
      */
     public void printEdges() {
