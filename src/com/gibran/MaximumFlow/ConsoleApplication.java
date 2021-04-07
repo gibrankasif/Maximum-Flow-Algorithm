@@ -20,8 +20,6 @@ public class ConsoleApplication {
     /**
      * The following program is the Console Application dedicated to calculating the maximum flow
      * and running other graph operations, using dataset files.
-     * @param args
-     * @throws FileNotFoundException
      */
 
     public static void main(String[] args) throws FileNotFoundException { consoleMenu(); }
