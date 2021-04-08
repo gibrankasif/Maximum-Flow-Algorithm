@@ -70,9 +70,9 @@ public class MaximumFlow {
             //Counts the number of paths
             numAugmentedPaths++;
             System.out.println();
-            System.out.println("Number of paths: " + numAugmentedPaths);
-            System.out.println("The current flow values: " + bottleNeck);
-            System.out.println("Current max-flow total: " + maximumFlow);
+            System.out.println("Number of augmented paths: " + numAugmentedPaths);
+            System.out.println("The current flow value: " + bottleNeck);
+            System.out.println("Current max-flow value: " + maximumFlow);
         }
 //        residualGraph.printGraph();
 

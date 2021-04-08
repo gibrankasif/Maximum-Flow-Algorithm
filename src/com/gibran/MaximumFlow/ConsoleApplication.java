@@ -131,7 +131,6 @@ public class ConsoleApplication {
                     degree();
                     break;
                 case "M":
-                    System.out.println(arrayOfNodes);
                     calculateMaximumFlow();
                     break;
                 case "P":
@@ -150,7 +149,7 @@ public class ConsoleApplication {
     }
 
     /**
-     * The following method is used to add a new edge
+     * addNewEdge() is used to add a new edge
      */
     public static void addNewEdge() {
         Scanner newEdgeScanner = new Scanner(System.in);
@@ -193,7 +192,7 @@ public class ConsoleApplication {
     }
 
     /**
-     * Changes the edge weight of an existing edge
+     * changeEdgeWeight() Changes the edge weight of an existing edge
      *
      */
     public static void changeEdgeWeight() {
@@ -345,7 +344,7 @@ public class ConsoleApplication {
         int maxFlow = maximumFlow.findMaxFlow(graph, startNode, endNode);
         long endTime = System.nanoTime(); //Calculating time finished
         System.out.println();
-        System.out.println("The calculated maximum flow is " + maxFlow);
+        System.out.println("The total maximum flow is " + maxFlow);
         long nanoSeconds = (endTime - startTime); // Time consumed in nanoseconds
         System.out.println();
         System.out.println("Time taken: "+ nanoSeconds + "(ns)."); //Prints the time taken in nanoseconds
